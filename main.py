@@ -4,7 +4,7 @@ import platform
 import sys
 print("\n*****************************************************************")
 print("\n* AKDFI  --Windows/Linux                                        *")
-print("\n* Version 2.0                                                   *")
+print("\n* Version 2.1                                                   *")
 print("\n*****************************************************************")
 print("\n*****************************************************************")
 print("\n* Copyright of AKD, 2023                                        *")
@@ -91,12 +91,12 @@ if platform.system() == 'Linux':
     print("[+] Wifi interface list")
     for liss in intf_list:
         print(liss)
-    interface=input("Enter the interface")
+    interface=input("Enter the interface\n:")
     if interface not in intf_list:
         print("[-] Interface not avlable")
         sys.exit(1)
     os.system(f"sudo nmcli d wifi list ifname {interface} " )
-    wifiname=input("select the wifi you want to bruteforce")
+    wifiname=input("select the wifi you want to bruteforce\n:")
     if wifiname=="":
         print("No name provide")
         sys.exit()
